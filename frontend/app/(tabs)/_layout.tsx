@@ -61,6 +61,16 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="chats"
+        options={{
+          title: "",
+          animation: "shift",
+          tabBarIcon: ({ color, focused }) => (
+              <IconSymbol style={{ flex: 1, marginTop: focused? 2: 10, marginBottom: -50, marginRight: -20 }} size={focused? 39: 28} name="message" color={`${focused? 'black': color}`} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="BuyNBorrow"
         options={{
           title: "",

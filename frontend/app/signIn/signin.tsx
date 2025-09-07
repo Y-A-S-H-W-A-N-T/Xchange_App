@@ -23,8 +23,8 @@ type requiredProps = {
 };
 
 const SignIn = ({ setComponent }: requiredProps) => {
-  const [phone, setPhone] = useState("8179230511");
-  const [password, setPassword] = useState("yash");
+  const [phone, setPhone] = useState("8179230511"); // 7330913164
+  const [password, setPassword] = useState("yash"); // yashwant
   const router = useRouter()
 
   const [signin, { loading, error }] = useMutation(Sign_In, {

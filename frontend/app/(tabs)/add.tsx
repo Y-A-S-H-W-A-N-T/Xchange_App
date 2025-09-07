@@ -41,7 +41,33 @@ const Add = () => {
   const progressAnim = useRef(new Animated.Value(0)).current;
   const toggleAnim = useRef(new Animated.Value(0)).current;
 
-  const ownerName = "Yashwant";
+  const [formSell, setFormSell] = useState({
+    ownerName: "",
+    ownerPhoneNumber: "",
+    productName: "",
+    type: "",
+    price: "",
+    description: "",
+    images: [],
+    xchange: "general",
+    location: "",
+    tags: [] as string[], // Added tags field as an array
+  });
+
+  const [formLend, setFormLend] = useState({
+    ownerName: "",
+    ownerPhoneNumber: "",
+    productName: "",
+    type: "",
+    price: "",
+    description: "",
+    images: [],
+    xchange: "general",
+    days: "",
+    location: "",
+    tags: [] as string[], // Added tags field as an array
+  });
+
 
   useEffect(() => {
     const fetchOwnerPhone = async () => {
@@ -71,32 +97,6 @@ const Add = () => {
     }).start();
   }, [lendSell]);
 
-  const [formSell, setFormSell] = useState({
-    ownerName: "",
-    ownerPhoneNumber: "",
-    productName: "",
-    type: "",
-    price: "",
-    description: "",
-    images: [],
-    xchange: "general",
-    location: "",
-    tags: [] as string[], // Added tags field as an array
-  });
-
-  const [formLend, setFormLend] = useState({
-    ownerName: "",
-    ownerPhoneNumber: "",
-    productName: "",
-    type: "",
-    price: "",
-    description: "",
-    images: [],
-    xchange: "general",
-    days: "",
-    location: "",
-    tags: [] as string[], // Added tags field as an array
-  });
 
   const [addProductSell, { loading: loadingSell, error: errorSell }] =
     useMutation(Add_Product_Sell, {
@@ -321,7 +321,8 @@ const Add = () => {
         "location",
       ],
     };
-
+    setFormLend(({...formLend, ownerPhoneNumber: ownerPhone}))
+    setFormSell(({...formSell, ownerPhoneNumber: ownerPhone}))
     const formData: any = lendSell === "lend" ? formLend : formSell;
     const missingFields = requiredFields[lendSell].filter(
       (field: any) =>
@@ -329,6 +330,8 @@ const Add = () => {
         (field === "ownerPhoneNumber" && !/^\d{10}$/.test(formData[field])) ||
         (field === "days" && !/^\d+$/.test(formData[field]))
     );
+
+    console.log(":::::::::::::::::::::",formData)
 
     if (missingFields.length > 0) {
       Alert.alert(
@@ -422,7 +425,7 @@ const Add = () => {
                   autoCapitalize="words"
                 />
               </View>
-              <View style={styles.inputContainer}>
+              {/* <View style={styles.inputContainer}>
                 <TextInput
                   placeholder="Phone Number"
                   style={styles.modernInput}
@@ -432,7 +435,7 @@ const Add = () => {
                   }
                   keyboardType="numeric"
                 />
-              </View>
+              </View> */}
               <View style={styles.inputContainer}>
                 <TextInput
                   placeholder="Product Name"

@@ -18,18 +18,19 @@ const resolvers = {
     },
     getProduct_Borrow: async () => {
       const ProductBorrow = await Product_Lend.find({});
-      console.log("===>>>",ProductBorrow);
       return ProductBorrow;
     },
     getProduct_Buy_Details: async(_, args) => {
       const response = await Product_Sell.findById(args.id);
-      console.log("----BUY",response)
       return response;
     },
     getProduct_Borrow_Details: async(_, args) => {
       const response = await Product_Lend.findById(args.id);
-      console.log("----BORROW",response)
       return response;
+    },
+    getUserChats: async(_,args) =>{
+      const response = await User.findOne({ number: args.number })
+      return response?.chatSpace
     }
   },
   Mutation: {

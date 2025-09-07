@@ -21,6 +21,7 @@ const MAPPING = {
   'person': 'person',
   'plus': 'add',
   'magnifyingglass': 'search',
+  'message': 'chat-bubble-outline'
 } as IconMapping;
 
 /**

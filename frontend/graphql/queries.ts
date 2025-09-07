@@ -176,3 +176,14 @@ export const get_Products_Borrow_Details = gql`
     }
   }
 `;
+
+export const getUserChats = gql`
+  query GetUserChats($number: String) {
+    getUserChats(number: $number) {
+      productID
+      productName
+      chatPartner
+      chatID
+    }
+  } 
+`

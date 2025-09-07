@@ -28,7 +28,7 @@ export default function RootLayout() {
   return (
     <ApolloProvider client={client}>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack initialRouteName="(tabs)">
+        <Stack>
           {/* CHANGES - temporary, remove the initialRouteName */}
           {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} /> */}
           <Stack.Screen name="index" options={{ headerShown: false }} />

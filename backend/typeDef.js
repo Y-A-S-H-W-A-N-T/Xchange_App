@@ -96,6 +96,13 @@ const typeDefs = `#graphql
         ownerName: String,
         ownerPhoneNumber: String,
     }
+    
+    type userChats{
+        productID: String
+        productName: String
+        chatPartner: String
+        chatID: String
+    }
 
     type Query{
         getUsers: [user]
@@ -104,6 +111,7 @@ const typeDefs = `#graphql
         getProduct_Buy_Details(id: ID!): product_sell
         getProduct_Borrow: [product_lend]
         getProduct_Borrow_Details(id: ID!): product_lend
+        getUserChats(number: String): [userChats]
     }
 
     type Mutation{

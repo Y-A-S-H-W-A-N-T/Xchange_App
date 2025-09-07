@@ -8,14 +8,32 @@ import resolvers from "./resolver.js";
 import UserRoute from "./routes/userRoute.js";
 import typeDefs from "./typeDef.js";
 import initializeSocketIO from "./websockets.js";
+import { Server } from "socket.io";
 
+
+const port = 3000;
 const app = express();
 const server = http.createServer(app);
+app.use(cors())
 
 // Initialize Socket.IO
 const io = initializeSocketIO(server);
 
-const port = 3000;
+// const server = http.createServer(app);
+// const io = new Server(server);
+
+
+server.listen(port,(err)=>{
+    if (err) throw err;
+    console.log(`Server is running at http://192.168.0.10:${port}`) 
+})
+
+
+
+// io.on('connection', socket => {
+//   console.log("Started")
+// });
+
 
 const URL = `mongodb+srv://raoyashwant132:Xchange@mobile.qd2x1vb.mongodb.net/xchange-app?retryWrites=true&w=majority`;
 mongoose
@@ -46,9 +64,10 @@ async function startServer() {
     })
   );
 
-  app.listen(port, () => {
-    console.log(`🚀 Server ready at http://localhost:${port}/graphql`);
-  });
+  // app.listen(port, () => {
+  //   console.log(`🚀 Server ready at http://192.168.0.10:3000/graphql`);
+  // });
+
 }
 
 startServer();

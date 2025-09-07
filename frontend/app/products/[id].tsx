@@ -3,7 +3,7 @@ import { get_Products_Borrow_Details, get_Products_Buy_Details } from "@/graphql
 import { useQuery } from "@apollo/client";
 import { Ionicons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Dimensions,
   Image,
@@ -14,6 +14,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import * as SecureStore from "expo-secure-store";
 
 const { width } = Dimensions.get("window");
 
@@ -40,8 +41,17 @@ const mockProductData = {
 };
 
 export default function Product() {
+  const [ownerPhone,setOwnerPhone] = useState<any>()
+
+  useEffect(() => {
+    const fetchOwnerPhone = async () => {
+      const val = await SecureStore.getItemAsync("user_phone");
+      setOwnerPhone(val)
+    };
+    fetchOwnerPhone();
+  }, []);
+
   const { id, type } = useLocalSearchParams();
-  console.log("------------", id);
   const query: any =
     type === "buy"
       ? get_Products_Buy_Details
@@ -60,7 +70,6 @@ export default function Product() {
     variables,
     skip: !id || !query,
   });
-  console.log(data)
   const productData = type === 'buy'? data?.getProduct_Buy_Details : data?.getProduct_Borrow_Details;
   const [activeTab, setActiveTab] = useState("details");
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -303,24 +312,26 @@ export default function Product() {
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              style={[styles.tab, activeTab === "owner" && styles.activeTab]}
-              onPress={() => setActiveTab("owner")}
-            >
-              <Ionicons
-                name="person-outline"
-                size={20}
-                color={activeTab === "owner" ? "#333" : "#999"}
-              />
-              <Text
-                style={[
-                  styles.tabText,
-                  activeTab === "owner" && styles.activeTabText,
-                ]}
+            { ownerPhone !== productData?.ownerDetails?.ownerPhoneNumber &&
+              <TouchableOpacity
+                style={[styles.tab, activeTab === "owner" && styles.activeTab]}
+                onPress={() => setActiveTab("owner")}
               >
-                About Owner
-              </Text>
-            </TouchableOpacity>
+                <Ionicons
+                  name="person-outline"
+                  size={20}
+                  color={activeTab === "owner" ? "#333" : "#999"}
+                />
+                <Text
+                  style={[
+                    styles.tabText,
+                    activeTab === "owner" && styles.activeTabText,
+                  ]}
+                >
+                  About Owner
+                </Text>
+              </TouchableOpacity>
+            }
           </View>
 
           <View style={styles.tabContentContainer}>
@@ -330,16 +341,30 @@ export default function Product() {
       </ScrollView>
 
       {/* Floating Action Buttons */}
-      <View style={styles.floatingButtons}>
+      {
+        ownerPhone !== productData?.ownerDetails?.ownerPhoneNumber &&
+        <View style={styles.floatingButtons}>
         <TouchableOpacity style={styles.secondaryButton}>
           <Ionicons name="heart-outline" size={20} color="#333" />
           <Text style={styles.secondaryButtonText}>Save for Later</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.primaryButton} onPress={()=>router.push({pathname: '/products/chat/[chat]', params: { productID: productData?.id, productName: productData?.productName }})}>
+        <TouchableOpacity style={styles.primaryButton}
+          onPress={()=>
+            router.push({
+              pathname: '/products/chat/[chat]',
+              params: { 
+                productID: productData?.id,
+                productName: productData?.productName,
+                productOwner:  productData?.ownerDetails?.ownerPhoneNumber,
+                userNumber: ownerPhone
+              }
+            })
+          }
+        >
           <Text style={styles.primaryButtonText}>Ask Product</Text>
           <Ionicons name="hand-right-outline" size={20} color="#fff" />
         </TouchableOpacity>
-      </View>
+      </View>}
     </SafeAreaView>
   );
 }
