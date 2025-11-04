@@ -9,6 +9,66 @@ const message = new mongoose.Schema({
   }
 });
 
+const dealDone = new mongoose.Schema({
+  productID: {
+    type: String
+  },
+  productName: {
+    type: String
+  },
+  productActualPrice: {
+    type: String
+  },
+  productOwner: {
+    type: String
+  },
+  productType: {
+    type: String // Borrow | Bought
+  },
+  date: {
+    type: String
+  },
+  timeOfXchange: {
+    type: String
+  },
+  FinalPrice: {
+    type: String
+  },
+  dealDetails: {
+    type: String
+  }
+});
+
+const dealMade = new mongoose.Schema({
+   productID: {
+    type: String
+  },
+  productName: {
+    type: String
+  },
+  productActualPrice: {
+    type: String
+  },
+  soldTo: {
+    type: String // customer ID who bought/borrowed this prodcut
+  },
+  productType: {
+    type: String // Borrow | Bought
+  },
+  date: {
+    type: String
+  },
+  timeOfXchange: {
+    type: String
+  },
+  FinalPrice: {
+    type: String
+  },
+  dealDetails: {
+    type: String
+  }
+});
+
 const chatSpace = new mongoose.Schema({
   productID: {
     type: String
@@ -41,6 +101,8 @@ export const userSchema = new mongoose.Schema(
       type: String,
     },
     chatSpace: [chatSpace],
+    dealsDone: [dealDone],
+    dealsMade: [dealMade]
   },
   {
     timestamps: true,

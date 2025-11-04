@@ -4,6 +4,7 @@ const typeDefs = `#graphql
         name: String,
         number: String,
         password: String
+        pfp: String
     }
 
     input userInput{
@@ -104,6 +105,11 @@ const typeDefs = `#graphql
         chatID: String
     }
 
+    type GeneralResponse{
+        status: String
+        message: String
+    }
+
     type Query{
         getUsers: [user]
         getUser(number: String): user
@@ -119,6 +125,7 @@ const typeDefs = `#graphql
         signIn(number: String, password: String): AuthResponse
         addProduct_Sell(input: product_sell_input): AddProduct_Sell_Response
         addProduct_Lend(input: product_lend_input): AddProduct_Lend_Response
+        uploadPFP(pfp: String, number: String): GeneralResponse
     }
 `;
 
