@@ -31,29 +31,6 @@ const colors = {
   black: "#000000",
 };
 
-const dummyChatSpace: Chat[] = [
-  {
-    productID: "6885f6d8417d3c282e4a3fe8",
-    productName: "Game",
-    chatPartner: "7330913164",
-    chatID: "6885f6d8417d3c282e4a3fe8-8179230511-7330913164",
-    messages: [
-      { sender: "7330913164", messageSent: "Hi" },
-      { sender: "7330913164", messageSent: "Hey!!!! 😁😄😄😄😄🥰" },
-    ],
-  },
-  {
-    productID: "7890abcd1234ef5678901234",
-    productName: "Laptop",
-    chatPartner: "9123456789",
-    chatID: "7890abcd1234ef5678901234-7330913164-9123456789",
-    messages: [
-      { sender: "9123456789", messageSent: "Is this still available?" },
-      { sender: "7330913164", messageSent: "Yes, it is!" },
-    ],
-  },
-];
-
 const Chats: React.FC<ChatsProps> = () => {
   const [userNumber, setUserNumber] = useState<string>("");
 

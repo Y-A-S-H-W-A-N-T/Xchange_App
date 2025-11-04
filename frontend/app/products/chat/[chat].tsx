@@ -273,6 +273,9 @@ const ChatScreen: React.FC<ChatScreenProps> = () => {
               {connectionStatus}
             </Text>
           </View>
+          <View>
+              <Text>Make Deal</Text>
+          </View>
 
           <FlatList
             ref={flatListRef}

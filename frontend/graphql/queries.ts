@@ -185,5 +185,24 @@ export const getUserChats = gql`
       chatPartner
       chatID
     }
-  } 
-`
+  }
+`;
+
+export const uploadPFP = gql`
+  mutation Mutation($pfp: String, $number: String) {
+    uploadPFP(pfp: $pfp, number: $number) {
+      message
+      status
+    }
+  }
+`;
+
+export const GET_USER = gql`
+  query GetUser($number: String) {
+    getUser(number: $number) {
+      name
+      number
+      pfp
+    }
+  }
+`;

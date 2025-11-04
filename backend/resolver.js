@@ -117,6 +117,34 @@ const resolvers = {
         console.error('Error adding product:', error);
         throw new Error('Failed to add product: ' + error.message);
       }
+    },
+    uploadPFP: async (_, { number, pfp }) => {
+      console.log("CALLED UPLOAD PFP-----------------------",number)
+      try {
+        const user = await User.findOneAndUpdate(
+          { number },
+          { pfp: pfp },
+          { new: true, runValidators: true }
+        );
+
+        console.log("Updated PFP User ------------- ",user)
+    
+        if (!user) {
+          return {
+            status: '404',
+            message: 'User Not Found'
+          };
+        }
+    
+        return {
+          status: '200',
+          message: 'PFP Uploaded'
+        };
+
+      } catch (error) {
+        console.error("Error:", error);
+        throw new Error('Failed to upload PFP: ' + error.message);
+      }
     }
   },
 };

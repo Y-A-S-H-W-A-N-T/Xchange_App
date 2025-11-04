@@ -9,7 +9,8 @@ import UserRoute from "./routes/userRoute.js";
 import typeDefs from "./typeDef.js";
 import initializeSocketIO from "./websockets.js";
 import { Server } from "socket.io";
-
+import dotenv from 'dotenv';
+dotenv.config();
 
 const port = 3000;
 const app = express();
@@ -35,7 +36,7 @@ server.listen(port,(err)=>{
 // });
 
 
-const URL = `mongodb+srv://raoyashwant132:Xchange@mobile.qd2x1vb.mongodb.net/xchange-app?retryWrites=true&w=majority`;
+const URL = process.env.MONGO_URL
 mongoose
   .connect(URL)
   .then(() => {

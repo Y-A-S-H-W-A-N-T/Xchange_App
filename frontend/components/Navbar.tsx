@@ -1,5 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import { BlurView } from 'expo-blur';
+import { useRouter } from 'expo-router';
 import React, { useRef, useState } from 'react';
 import {
   Animated,
@@ -15,6 +16,7 @@ const Navbar = () => {
   const [isThemeToggleVisible, setIsThemeToggleVisible] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true); // Default to dark mode
   const themeToggleTranslateX = useRef(new Animated.Value(0)).current; // Start hidden behind logo
+  const router = useRouter()
 
   const toggleThemeButton = () => {
     setIsThemeToggleVisible(!isThemeToggleVisible);
@@ -72,7 +74,7 @@ const Navbar = () => {
         )}
         <TouchableOpacity
           style={styles.profileContainer}
-          onPress={() => console.log('Navigate to Profile')}
+          onPress={() => router.push('/profilePage') }
           activeOpacity={0.7}
         >
           <Feather name="user" size={24} color="#7a0000" />
@@ -93,7 +95,7 @@ const styles = StyleSheet.create({
     height: 80,
     width: width,
     paddingHorizontal: 15,
-    marginTop: 30,
+    marginTop: 0,
     backgroundColor: 'black'
   },
   logoContainer: {

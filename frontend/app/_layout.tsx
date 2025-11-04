@@ -10,7 +10,7 @@ import axios from "axios";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import "react-native-reanimated";
+// import "react-native-reanimated";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -50,6 +50,10 @@ export default function RootLayout() {
           />
           <Stack.Screen
             name="products/chat/[chat]"
+            options={{ headerShown: false, animation: "ios_from_right" }}
+          />
+          <Stack.Screen
+            name="profilePage"
             options={{ headerShown: false, animation: "ios_from_right" }}
           />
           <Stack.Screen name="+not-found" />
